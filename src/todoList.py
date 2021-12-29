@@ -6,6 +6,8 @@ import json
 import functools
 from botocore.exceptions import ClientError
 
+#PGS: Boto3 facilita la integración de su aplicación, biblioteca o script de Python con los servicios de AWS,
+#PGS: incluidos Amazon S3, Amazon EC2, Amazon DynamoDB y ..
 
 def get_table(dynamodb=None):
     if not dynamodb:
