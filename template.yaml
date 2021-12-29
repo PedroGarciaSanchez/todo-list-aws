@@ -115,7 +115,7 @@ Resources:
     #PGS: --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 
     #PGS: --endpoint-url http://localhost:8000 --region us-east-1
     #PGS: when on Local launch
-    #PGS: we use a mock database for unit testing
+    #PGS: we use a mock database for unit testing: TestToDo.py
       TableName: !Sub "${Stage}-TodosDynamoDbTable"
       AttributeDefinitions: 
         - AttributeName: id
