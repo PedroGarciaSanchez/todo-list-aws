@@ -3,11 +3,11 @@ pipeline {
     stages {
     
         stage('Checkout'){
-            steps{
+            steps
+            {
                 echo 'Pruebaaaa'
-                git "https://github.com/PedroGarciaSanchez/todo-list-aws.git"
+                //git "https://github.com/PedroGarciaSanchez/todo-list-aws.git"
                 //git([url: 'http://bitbucket.es.wcorp.carrefour.com/scm/ef/tests-automaticos.git', branch: 'launch_QASelenium_Jenkins', credentialsId: 'SCM_CARREFOUR_INSTALHP'])
-                }
 
             }
         }
