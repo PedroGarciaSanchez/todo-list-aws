@@ -1,5 +1,6 @@
 #PGS: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html:
 #PGS: You can author AWS CloudFormation templates in JSON or YAML formats
+#PGS: this file defines the application's AWS resources
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
@@ -59,6 +60,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
+      #PGS: handler function
       Handler: list.list
       Runtime: python3.7
       Events:
@@ -72,6 +74,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
+      #PGS: handler function
       Handler: get.get
       Runtime: python3.7
       Events:
@@ -85,6 +88,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
+      #PGS: handler function
       Handler: update.update
       Runtime: python3.7
       Events:
@@ -98,6 +102,7 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
+      #PGS: handler function
       Handler: delete.delete
       Runtime: python3.7
       Events:
