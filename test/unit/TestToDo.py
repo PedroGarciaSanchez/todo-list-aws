@@ -7,6 +7,7 @@ import sys
 import os
 import json
 
+#DynamoDB is mocked
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
@@ -44,7 +45,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local.delete()
         self.dynamodb = None
         print ('End: tearDown')
-
+        
+        
+    #Check if the table exists
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')

@@ -7,7 +7,7 @@ source todo-list-aws/bin/activate
 #PGS: get the latest version of pip
 python -m pip install --upgrade pip
 
-#For static testing
+#For static testing: static_test.sh
 
 #PGS: Radon is a Python tool which computes various code metrics. Supported metrics are:
 #raw metrics: SLOC, comment lines, blank lines, &c.
@@ -33,7 +33,8 @@ python -m pip install bandit
 #The pytest framework makes it easy to write small tests, yet scales to support complex functional testing for applications and libraries.
 python -m pip install pytest
 
-#For unit testing
+#For unit testing: unit_test.sh
+
 #PGS: You use the AWS SDK for Python (Boto3) to create, configure, and manage AWS services, such as Amazon Elastic Compute Cloud 
 #(Amazon EC2) and Amazon Simple Storage Service (Amazon S3).
 python -m pip install boto3
