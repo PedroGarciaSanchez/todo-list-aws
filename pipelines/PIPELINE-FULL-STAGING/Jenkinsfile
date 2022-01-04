@@ -9,7 +9,7 @@ pipeline {
             }
         }
         stage('Test'){
-            //execute static and unit tests
+            //PGS: execute static and unit tests
             steps{
                 echo 'Static program analysis:'
                 sh "bash pipelines/PIPELINE-FULL-STAGING/static_test.sh"
@@ -49,10 +49,19 @@ pipeline {
         stage('Integration Test after deploy'){
             steps{
                 script {
+                /* PGS:
+                In order to execute the integration tests:
+                aws cloudformation with this options:
+                --stack-name: todo-list-aws-staging. After the deploy, we use the created stack of staging.
+                To get the URL, we access the cloud formation list of stacks->outputs as if we were in the AWS console, and get the value of the BaseUrlApi:
+                https://f6l884sw05.execute-api.us-east-1.amazonaws.com/Prod
+                We execute integration.sh with this URL as a parameter
+                */
                     def BASE_URL = sh( script: "aws cloudformation describe-stacks --stack-name todo-list-aws-staging --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text",
                         returnStdout: true)
                     echo "$BASE_URL"
                     echo 'Initiating Integration Tests'
+                    //PGS: integration tests sh is in common-steps folder
                     sh "bash pipelines/common-steps/integration.sh $BASE_URL"
                 }
                    

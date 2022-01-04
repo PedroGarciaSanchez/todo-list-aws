@@ -9,7 +9,7 @@ export DYNAMODB_TABLE=todoUnitTestsTable
 #PGS: Execute TestToDo.py
 python test/unit/TestToDo.py
 pip show coverage
-#PGS: Run a Python program and collect execution data.
+#PGS: Run a Python program and collect execution data. We must get over 80%
 coverage run --include=src/todoList.py test/unit/TestToDo.py
 #PGS: Report coverage results.
 coverage report
