@@ -27,6 +27,7 @@ def get_table(dynamodb=None):
     return table
 
 #PGS: invoked from /todo-list-aws/src/get.py and from TestToDo.py
+#PGS key 
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
     try:
@@ -36,8 +37,10 @@ def get_item(key, dynamodb=None):
             }
         )
 
+    #PGS: ClientError is a Boto exception. 
     except ClientError as e:
         print(e.response['Error']['Message'])
+    #PGS: if there is no boto3 exception in the recovery of the table and item (todo record)    
     else:
         print('Result getItem:'+str(result))
         if 'Item' in result:
@@ -50,7 +53,7 @@ def get_items(dynamodb=None):
     result = table.scan()
     return result['Items']
 
-#PGS: invoked from /todo-list-aws/src/create.py  and from TestToDo.py
+#PGS: invoked from /todo-list-aws/src/create.py  and from TestToDo.py (tests)
 def put_item(text, dynamodb=None):
     table = get_table(dynamodb)
     timestamp = str(time.time())

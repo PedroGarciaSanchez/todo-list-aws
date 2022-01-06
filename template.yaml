@@ -41,12 +41,23 @@ Globals:
 Resources:
   
   CreateTodoFunction:
+  #PGS: AWS::Serverless::Function Creates an AWS Lambda function, an AWS Identity and Access Management (IAM) execution role, 
+  #PGS: and event source mappings that trigger the function.
     Type: AWS::Serverless::Function 
     Properties:
-    #PGS: source path
+    #PGS: source path. CodeUri:
+    #PGS: 1. If the PackageType property is set to Zip (default), then one of CodeUri or InlineCode is required.
+
+    #PGS: 2. If an Amazon S3 URI or FunctionCode object is provided, the Amazon S3 object referenced must be a valid Lambda deployment package.
+
+    #PGS: 3. If the path to a local folder is provided, for the code to be transformed properly the template must go through the workflow that 
+    #PGS: includes sam build followed by either sam deploy or sam package. By default, relative paths are resolved with respect to the AWS SAM
+    #PGS: template's location.
       CodeUri: src/
+      #PGS: Role: The ARN of an IAM role to use as this function's execution role.
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-       #PGS: handler function
+       #PGS: handler function. Handler: The function within your code that is called to begin execution. 
+       #PGS: This property is only required if the PackageType property is set to Zip.
       Handler: create.create
       Runtime: python3.7
       Events:
