@@ -19,5 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Stagin pipeline: comments on everything related to Integration-Test-after-deploy stag
 - Prod pipeline: comments on everything related to Jenkinsfile stages
+## [1.0.4] - 2022-01-06
+### Added
+- comments on lambda functions handlers 
+
 
 
