@@ -3,7 +3,7 @@ import boto3
 import time
 import uuid
 import json
-# import functools
+import functools
 from botocore.exceptions import ClientError
 
 
@@ -18,12 +18,14 @@ from botocore.exceptions import ClientError
 def get_table(dynamodb=None):
     if not dynamodb:
         # URL = os.environ['ENDPOINT_OVERRIDE']
-        # if URL:
-        #    print('URL dynamoDB:'+URL)
-        #    boto3.client = functools.partial(boto3.client, endpoint_url=URL)
-        #    boto3.resource = functools.partial(boto3.resource,
-        #                                       endpoint_url=URL)
-        dynamodb = boto3.resource("dynamodb")
+        URL = os.environ['DYNAMODB_TABLE']
+        if URL:
+            print('URL dynamoDB:'+URL)
+            boto3.client = functools.partial(boto3.client, endpoint_url=URL)
+            boto3.resource = functools.partial(boto3.resource,
+                                               endpoint_url=URL)
+        #dynamodb = boto3.resource("dynamodb")
+        dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     # fetch todo from the database
     # PGS: Table: todoUnitTestsTable
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
