@@ -28,10 +28,10 @@ def get_table(dynamodb=None):
     # PGS: Table: todoUnitTestsTable
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
-    
+
 
 # PGS: invoked from /todo-list-aws/src/get.py and from TestToDo.py
-# PGS key 
+# PGS key
 def get_item(key, dynamodb=None):
     table = get_table(dynamodb)
     try:
@@ -50,7 +50,7 @@ def get_item(key, dynamodb=None):
         print('Result getItem:'+str(result))
         if 'Item' in result:
             return result['Item']
-            
+
 
 # PGS: invoked from /todo-list-aws/src/list.py and from TestToDo.py
 def get_items(dynamodb=None):
@@ -58,7 +58,7 @@ def get_items(dynamodb=None):
     # fetch todo from the database
     result = table.scan()
     return result['Items']
-    
+
 
 # PGS: invoked from /todo-list-aws/src/create.py  and from TestToDo.py (tests)
 def put_item(text, dynamodb=None):
@@ -85,7 +85,7 @@ def put_item(text, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return response
-        
+    
 
 # PGS: invoked from /todo-list-aws/src/update.py  and from TestToDo.py
 def update_item(key, text, checked, dynamodb=None):
@@ -93,8 +93,8 @@ def update_item(key, text, checked, dynamodb=None):
     timestamp = int(time.time() * 1000)
     # update the todo in the database
     try:
-        # PGS: https://boto3.amazonaws.com/v1/documentation/api/latest/reference
-        # /services/dynamodb.html#DynamoDB.Client.update_item
+    # PGS: https://boto3.amazonaws.com/v1/documentation/api/latest/reference
+    # /services/dynamodb.html#DynamoDB.Client.update_item
         result = table.update_item(
             Key={
                 'id': key
@@ -117,7 +117,7 @@ def update_item(key, text, checked, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return result['Attributes']
-        
+
 
 # PGS: invoked from /todo-list-aws/src/delete.py  and from TestToDo.py
 def delete_item(key, dynamodb=None):
@@ -134,6 +134,7 @@ def delete_item(key, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return
+
 
 # PGS: invoked from /todo-list-aws/test/unit/TestToDo.py
 def create_todo_table(dynamodb):

@@ -15,7 +15,8 @@ def update(event, context):
         event['pathParameters']['id'],
         data['text'], data['checked'])
     # create a response
-    # PGS: we use this decimalEncoder workaround as there were problems with 2 fields of 
+    # PGS: we use this decimalEncoder workaround as there
+    # PGS: were problems with 2 fields of
     # PGS: the response that contains decimals: createdAt and updatedAt
     response = {
         "statusCode": 200,
