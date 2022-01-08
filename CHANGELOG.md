@@ -23,5 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - comments on lambda functions handlers 
 
+## [1.0.5] - 2022-01-08
+### Added
+- Change format of comments and lines in src files to pass the control of flake8  
+- added -m to coverage report to see the missing lines
 
 
