@@ -8,6 +8,7 @@ import os
 import json
 
 #DynamoDB is mocked
+# PGS: IMPORTANT!: https://qxf2.com/blog/how-to-use-moto-with-aws-dynamodb/
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
@@ -26,12 +27,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             category=DeprecationWarning,
             message="Using or importing.*")
         """Create the mock database and table"""
+        # PGS: 2.Create a DynamoDB resource
         self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
 
         from src.todoList import create_todo_table
+        # PGS: 3.Create a dummy DynamoDB table
         self.table = create_todo_table(self.dynamodb)
         #self.table_local = create_todo_table()
         print ('End: setUp')

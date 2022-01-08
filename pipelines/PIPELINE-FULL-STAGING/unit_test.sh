@@ -6,6 +6,7 @@ export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 echo "PYTHONPATH: $PYTHONPATH"
 #PGS: set variable with table name to use it in todoList.py
 export DYNAMODB_TABLE=todoUnitTestsTable
+export ENDPOINT_OVERRIDE='http://localhost:8000'
 #PGS: Execute TestToDo.py
 python test/unit/TestToDo.py
 pip show coverage

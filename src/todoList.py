@@ -17,15 +17,20 @@ from botocore.exceptions import ClientError
 
 def get_table(dynamodb=None):
     if not dynamodb:
-        # URL = os.environ['ENDPOINT_OVERRIDE']
+        URL = os.environ['ENDPOINT_OVERRIDE']
         # URL = os.environ['DYNAMODB_TABLE']
         # PGS: https://stackoverflow.com/questions/49955926
         # /setting-boto3-dynamodb-endpoint-url-globaly
         # PGS: https://docs.aws.amazon.com/es_es/amazondynamodb/latest/
         # developerguide/DynamoDBLocal.DownloadingAndRunning.html
-        URL = "http://localhost:8000"
+        # PGS: Dynamo URLs: https://docs.aws.amazon.com/general/latest/gr/ddb.html
+        # URL = "http://localhost:8000"
         if URL:
             print('URL dynamoDB:'+URL)
+            # PGS: By redefining boto3.client and boto3.resource to be our new partial, 
+            # instead of the original versions from the library, we're monkey-patching boto3.
+            # PGS: Monkey patching: It's the dynamic replacement of attributes at runtime.
+            # PGS: https://stackoverflow.com/questions/5626193/what-is-monkey-patching
             boto3.client = functools.partial(boto3.client, endpoint_url=URL)
             boto3.resource = functools.partial(boto3.resource,
                                                endpoint_url=URL)
