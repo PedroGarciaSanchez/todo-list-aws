@@ -10,8 +10,20 @@ def list(event, context):
     # PGS: we use this decimalEncoder workaround as there were problems with
     # PGS: 2 fields
     # PGS: of the response that contains decimals: createdAt and updatedAt
-    response = {
-        "statusCode": 200,
-        "body": json.dumps(result, cls=decimalencoder.DecimalEncoder)
-    }
+    
+    
+    
+    if result:
+        response = {
+            "statusCode": 200,
+            "body": json.dumps(result, cls=decimalencoder.DecimalEncoder)
+        }
+    else:
+        response = {
+            "statusCode": 404,
+            "body": ""
+        }
     return response
+    
+    
+  
