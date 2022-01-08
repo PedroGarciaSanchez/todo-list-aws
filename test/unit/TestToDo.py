@@ -110,13 +110,13 @@ class TestDatabaseFunctions(unittest.TestCase):
         
         
         
-        def test_get_todo_error(self):
+    def test_get_todo_error(self):
         print ('---------------------')
         print ('Start: test_get_todo_error')
         from src.todoList import get_item
       
-        idItem = “1234”
-        idItemTypeError = “A@?”
+        idItem = "1234"
+        idItemTypeError = "A@?"
 
         self.assertRaises(
             Exception,
