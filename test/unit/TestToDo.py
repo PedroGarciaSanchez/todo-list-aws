@@ -218,13 +218,6 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertTrue(len(get_items(self.dynamodb)) == 0)
         print ('End: test_delete_todo')
 
-    def test_delete_todo_error(self):
-        print ('---------------------')
-        print ('Start: test_delete_todo_error')
-        from src.todoList import delete_item
-        # Testing file functions
-        self.assertRaises(TypeError, delete_item("", self.dynamodb))
-        print ('End: test_delete_todo_error')
 
 
 
