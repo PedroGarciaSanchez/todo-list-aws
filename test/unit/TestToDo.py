@@ -122,6 +122,11 @@ class TestDatabaseFunctions(unittest.TestCase):
             Exception,
             get_item(
                 idItem,
+                None))
+        self.assertRaises(
+            Exception,
+            get_item(
+                idItem,
                 self.dynamodb))
         self.assertRaises(
             TypeError,
