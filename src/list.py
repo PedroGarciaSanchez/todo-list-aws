@@ -10,9 +10,6 @@ def list(event, context):
     # PGS: we use this decimalEncoder workaround as there were problems with
     # PGS: 2 fields
     # PGS: of the response that contains decimals: createdAt and updatedAt
-    
-    
-    
     if result:
         response = {
             "statusCode": 200,
@@ -24,6 +21,3 @@ def list(event, context):
             "body": ""
         }
     return response
-    
-    
-  
