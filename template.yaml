@@ -32,7 +32,7 @@ Globals:
     Environment:
       Variables:
         DYNAMODB_TABLE: !Ref TodosDynamoDbTable
-        ENDPOINT_OVERRIDE: ""
+        ENDPOINT_OVERRIDE: "http://dynamodb:8000"
     
     #PGS: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
     #PGS: Resources: The required Resources section declares the AWS resources that you want to include in the stack, 
