@@ -231,7 +231,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         print ('Start: test_get_table_error')
         from src.todoList import get_table
         table = get_table(self.text)
-        print('Result table:'+str(table))
+        # print('Result table:'+str(table))
         print ('End: test_get_table_error')
 
 
