@@ -17,12 +17,12 @@ from botocore.exceptions import ClientError
 
 def get_table(dynamodb=None):
     if not dynamodb:
-        URL = os.environ['DYNAMODB_TABLE']
-        if URL:
-            print('URL dynamoDB:'+URL)
-            boto3.client = functools.partial(boto3.client, endpoint_url=URL)
-            boto3.resource = functools.partial(boto3.resource,
-                                               endpoint_url=URL)
+        URL = os.environ['ENDPOINT_OVERRIDE']
+        # if URL:
+        #    print('URL dynamoDB:'+URL)
+        #    boto3.client = functools.partial(boto3.client, endpoint_url=URL)
+        #    boto3.resource = functools.partial(boto3.resource,
+        #                                       endpoint_url=URL)
         dynamodb = boto3.resource("dynamodb")
     # fetch todo from the database
     # PGS: Table: todoUnitTestsTable
