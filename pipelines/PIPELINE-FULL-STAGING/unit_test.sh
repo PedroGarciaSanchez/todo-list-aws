@@ -12,6 +12,6 @@ pip show coverage
 #PGS: Run a Python program and collect execution data. We must get over 80%
 coverage run --include=src/todoList.py test/unit/TestToDo.py
 #PGS: Report coverage results.
-coverage report
+coverage report -m
 #PGS: Produce an XML report with coverage results.
 coverage xml
