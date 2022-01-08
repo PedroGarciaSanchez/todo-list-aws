@@ -85,7 +85,7 @@ def put_item(text, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return response
-    
+
 
 # PGS: invoked from /todo-list-aws/src/update.py  and from TestToDo.py
 def update_item(key, text, checked, dynamodb=None):
@@ -93,8 +93,8 @@ def update_item(key, text, checked, dynamodb=None):
     timestamp = int(time.time() * 1000)
     # update the todo in the database
     try:
-    # PGS: https://boto3.amazonaws.com/v1/documentation/api/latest/reference
-    # /services/dynamodb.html#DynamoDB.Client.update_item
+        # PGS: https://boto3.amazonaws.com/v1/documentation/api/latest/reference
+        # /services/dynamodb.html#DynamoDB.Client.update_item
         result = table.update_item(
             Key={
                 'id': key
