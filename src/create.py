@@ -2,12 +2,6 @@ import json
 import logging
 import todoList
 
-<<<<<<< HEAD
-#PGS: Handler for the Type: AWS::Serverless::Function defined in SAM template with:
-#Path: /todos
-#Method: post
-#Receives event and context as parameters
-=======
 # PGS: Handler for the Type: AWS::Serverless::Function defined in SAM template with:
 # Path: /todos
 # Method: post
