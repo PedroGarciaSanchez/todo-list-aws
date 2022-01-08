@@ -19,7 +19,11 @@ def get_table(dynamodb=None):
     if not dynamodb:
         # URL = os.environ['ENDPOINT_OVERRIDE']
         # URL = os.environ['DYNAMODB_TABLE']
-        URL = "http://dynamodb:8000"
+        # PGS: https://stackoverflow.com/questions/49955926
+        # /setting-boto3-dynamodb-endpoint-url-globaly
+        # PGS: https://docs.aws.amazon.com/es_es/amazondynamodb/latest/
+        # developerguide/DynamoDBLocal.DownloadingAndRunning.html
+        URL = "http://localhost:8000"
         if URL:
             print('URL dynamoDB:'+URL)
             boto3.client = functools.partial(boto3.client, endpoint_url=URL)
