@@ -93,7 +93,7 @@ def update_item(key, text, checked, dynamodb=None):
     timestamp = int(time.time() * 1000)
     # update the todo in the database
     try:
-        # PGS: https://boto3.amazonaws.com/v1/documentation/api/latest/reference
+        # PGS:https://boto3.amazonaws.com/v1/documentation/api/latest/reference
         # /services/dynamodb.html#DynamoDB.Client.update_item
         result = table.update_item(
             Key={
