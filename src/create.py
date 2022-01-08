@@ -5,7 +5,7 @@ import todoList
 #PGS: Handler for the Type: AWS::Serverless::Function defined in SAM template with:
 #Path: /todos
 #Method: post
-Receives event and context as parameters
+#Receives event and context as parameters
 def create(event, context):
     #PGS: it receives the request for the creation of a new record as "event" and makes a first validation. 
     #PGS: If the body does not contain 'text', the validation fails
