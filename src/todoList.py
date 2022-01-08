@@ -6,8 +6,9 @@ import json
 import functools
 from botocore.exceptions import ClientError
 
-# PGS: Boto3 facilita la integración de su aplicación, biblioteca o script de Python 
-# PGS: con los servicios de AWS,
+
+# PGS: Boto3 facilita la integración de su aplicación, biblioteca
+# PGS:  o script de Pythoncon los servicios de AWS,
 # PGS: incluidos Amazon S3, Amazon EC2, Amazon DynamoDB y ..
 
 # PGS: functions to operate with the DB.
@@ -27,6 +28,7 @@ def get_table(dynamodb=None):
     # PGS: Table: todoUnitTestsTable
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
     return table
+    
 
 # PGS: invoked from /todo-list-aws/src/get.py and from TestToDo.py
 # PGS key 
@@ -39,15 +41,16 @@ def get_item(key, dynamodb=None):
             }
         )
 
-    # PGS: ClientError is a Boto exception. 
+    # PGS: ClientError is a Boto exception.
     except ClientError as e:
         print(e.response['Error']['Message'])
-    # PGS: if there is no boto3 exception in the recovery of the table 
-    # and item (todo record)    
+    # PGS: if there is no boto3 exception in the recovery of the table
+    # and item (todo record)
     else:
         print('Result getItem:'+str(result))
         if 'Item' in result:
             return result['Item']
+            
 
 # PGS: invoked from /todo-list-aws/src/list.py and from TestToDo.py
 def get_items(dynamodb=None):
@@ -55,6 +58,7 @@ def get_items(dynamodb=None):
     # fetch todo from the database
     result = table.scan()
     return result['Items']
+    
 
 # PGS: invoked from /todo-list-aws/src/create.py  and from TestToDo.py (tests)
 def put_item(text, dynamodb=None):
@@ -81,6 +85,7 @@ def put_item(text, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return response
+        
 
 # PGS: invoked from /todo-list-aws/src/update.py  and from TestToDo.py
 def update_item(key, text, checked, dynamodb=None):
@@ -112,6 +117,7 @@ def update_item(key, text, checked, dynamodb=None):
         print(e.response['Error']['Message'])
     else:
         return result['Attributes']
+        
 
 # PGS: invoked from /todo-list-aws/src/delete.py  and from TestToDo.py
 def delete_item(key, dynamodb=None):

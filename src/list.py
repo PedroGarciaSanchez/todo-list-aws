@@ -7,7 +7,8 @@ def list(event, context):
     # fetch all todos from the database
     result = todoList.get_items()
     # create a response
-    # PGS: we use this decimalEncoder workaround as there were problems with 2 fields 
+    # PGS: we use this decimalEncoder workaround as there were problems with
+    # PGS: 2 fields
     # PGS: of the response that contains decimals: createdAt and updatedAt
     response = {
         "statusCode": 200,
