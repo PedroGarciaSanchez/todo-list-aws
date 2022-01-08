@@ -9,12 +9,19 @@ pipeline {
             }
         }
         stage('Test'){
+            //PGS: execute static and unit tests
             steps{
                 echo 'Static program analysis:'
                 sh "bash pipelines/PIPELINE-FULL-STAGING/static_test.sh"
                 echo 'Unit testing:'
                 sh "bash pipelines/PIPELINE-FULL-STAGING/unit_test.sh"
             }
+            /*PGS: The post section defines one or more additional steps that are run upon the completion of a Pipeline’s or stage’s run 
+            (depending on the location of the post section within the Pipeline). post can support any of the following post-condition blocks: 
+            always, changed, fixed, regression, aborted, failure, success, unstable, unsuccessful, and cleanup.
+            always: Run the steps in the post section regardless of the completion status of the Pipeline’s or stage’s run.
+            In this case, we publish the coverage report generated in xml format
+            */
             post {
                 always {
                     script {
@@ -42,10 +49,20 @@ pipeline {
         stage('Integration Test after deploy'){
             steps{
                 script {
+                /* PGS:
+                In order to execute the integration tests:
+                aws cloudformation with this options:
+                --stack-name: todo-list-aws-staging. After the deploy, we use the created stack of staging.
+                To get the URL, we access the cloud formation list of stacks->outputs as if we were in the AWS console, and get the value of the BaseUrlApi:
+                https://f6l884sw05.execute-api.us-east-1.amazonaws.com/Prod
+                We execute integration.sh with this URL as a parameter
+                Current Pipeline version natively supports returnStdout and returnStatus, which make it possible to get output or status from sh/bat steps.
+                */
                     def BASE_URL = sh( script: "aws cloudformation describe-stacks --stack-name todo-list-aws-staging --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text",
                         returnStdout: true)
                     echo "$BASE_URL"
                     echo 'Initiating Integration Tests'
+                    //PGS: integration tests sh is in common-steps folder
                     sh "bash pipelines/common-steps/integration.sh $BASE_URL"
                 }
                    

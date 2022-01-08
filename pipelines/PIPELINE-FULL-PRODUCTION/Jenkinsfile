@@ -3,6 +3,8 @@ pipeline {
     stages {
         
         stage('SetUp'){
+        //PGS: For production we do not have static and Unit tests, as they were executed in the Staging pipeline. 
+        //PGS: Only integration test after the deploy; same tests as in Staging, using the same sh but with the URL of Prod as a parameter
             steps{
                 echo 'Setup Virtualenv for testing'
                 sh "bash pipelines/PIPELINE-FULL-PRODUCTION/setup.sh"
@@ -23,6 +25,15 @@ pipeline {
         stage('Integration Test after deploy'){
             steps{
                 script {
+                /* PGS:
+                In order to execute the integration tests:
+                aws cloudformation with this options:
+                --stack-name: todo-list-aws-staging. After the deploy, we use the created stack of staging.
+                To get the URL, we access the cloud formation list of stacks->outputs as if we were in the AWS console, and get the value of the BaseUrlApi:
+                https://f6l884sw05.execute-api.us-east-1.amazonaws.com/Prod
+                We execute integration.sh with this URL as a parameter
+                Current Pipeline version natively supports returnStdout and returnStatus, which make it possible to get output or status from sh/bat steps.
+                */
                     def BASE_URL = sh( script: "aws cloudformation describe-stacks --stack-name todo-list-aws-production --query 'Stacks[0].Outputs[?OutputKey==`BaseUrlApi`].OutputValue' --region us-east-1 --output text",
                         returnStdout: true)
                     echo "$BASE_URL"

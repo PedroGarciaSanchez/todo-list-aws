@@ -7,6 +7,7 @@ import sys
 import os
 import json
 
+#DynamoDB is mocked
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
@@ -44,7 +45,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local.delete()
         self.dynamodb = None
         print ('End: tearDown')
-
+        
+        
+    #Check if the table exists
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
@@ -104,6 +107,29 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+        
+        
+        
+        def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        from src.todoList import get_item
+      
+        idItem = “1234”
+        idItemTypeError = “A@?”
+
+        self.assertRaises(
+            Exception,
+            get_item(
+                idItem,
+                self.dynamodb))
+        self.assertRaises(
+            TypeError,
+            get_item(
+                 idItemTypeError,
+                self.dynamodb))
+        print ('End: test_get_todo_error')
+                
     
     def test_list_todo(self):
         print ('---------------------')
