@@ -118,11 +118,7 @@ class TestDatabaseFunctions(unittest.TestCase):
         idItem = "1234"
         idItemTypeError = "A@?"
 
-        self.assertRaises(
-            Exception,
-            get_item(
-                idItem,
-                None))
+        
         self.assertRaises(
             Exception,
             get_item(
