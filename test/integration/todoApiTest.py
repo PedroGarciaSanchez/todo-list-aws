@@ -10,8 +10,9 @@ import pytest
 # PGS: This BASE_URL is set in integration.sh, and before that, in the Jenkinsfile of each environment. i.e, for staging:
 #https://f6l884sw05.execute-api.us-east-1.amazonaws.com/Prod
 
-BASE_URL = os.environ.get("BASE_URL")
-#BASE_URL = "https://m0qwfec693.execute-api.us-east-1.amazonaws.com/Prod"
+# BASE_URL = os.environ.get("BASE_URL")
+# BASE_URL = "https://m0qwfec693.execute-api.us-east-1.amazonaws.com/Prod"
+BASE_URL = "https://f6l884sw05.execute-api.us-east-1.amazonaws.com/Prod"
 DEFAULT_TIMEOUT = 2  # in secs
 
 
