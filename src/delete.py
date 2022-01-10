@@ -1,7 +1,6 @@
 import todoList
 
 
-# PGS: handler invoked from /todo-list-aws/template.yaml
 def delete(event, context):
     todoList.delete_item(event['pathParameters']['id'])
 
@@ -10,4 +9,3 @@ def delete(event, context):
         "statusCode": 200
     }
 
-    return response
