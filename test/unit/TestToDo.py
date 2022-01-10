@@ -7,6 +7,8 @@ import sys
 import os
 import json
 
+#DynamoDB is mocked
+# PGS: IMPORTANT!: https://qxf2.com/blog/how-to-use-moto-with-aws-dynamodb/
 @mock_dynamodb2
 class TestDatabaseFunctions(unittest.TestCase):
     def setUp(self):
@@ -25,12 +27,14 @@ class TestDatabaseFunctions(unittest.TestCase):
             category=DeprecationWarning,
             message="Using or importing.*")
         """Create the mock database and table"""
+        # PGS: 2.Create a DynamoDB resource
         self.dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         self.is_local = 'true'
         self.uuid = "123e4567-e89b-12d3-a456-426614174000"
         self.text = "Aprender DevOps y Cloud en la UNIR"
 
         from src.todoList import create_todo_table
+        # PGS: 3.Create a dummy DynamoDB table
         self.table = create_todo_table(self.dynamodb)
         #self.table_local = create_todo_table()
         print ('End: setUp')
@@ -44,7 +48,9 @@ class TestDatabaseFunctions(unittest.TestCase):
         #self.table_local.delete()
         self.dynamodb = None
         print ('End: tearDown')
-
+        
+        
+    #Check if the table exists
     def test_table_exists(self):
         print ('---------------------')
         print ('Start: test_table_exists')
@@ -104,6 +110,30 @@ class TestDatabaseFunctions(unittest.TestCase):
             self.text,
             responseGet['text'])
         print ('End: test_get_todo')
+        
+        
+        
+    def test_get_todo_error(self):
+        print ('---------------------')
+        print ('Start: test_get_todo_error')
+        from src.todoList import get_item
+      
+        idItem = "1234"
+        idItemTypeError = "A@?"
+
+        
+        self.assertRaises(
+            Exception,
+            get_item(
+                idItem,
+                self.dynamodb))
+        self.assertRaises(
+            TypeError,
+            get_item(
+                 idItemTypeError,
+                self.dynamodb))
+        print ('End: test_get_todo_error')
+                
     
     def test_list_todo(self):
         print ('---------------------')
@@ -199,6 +229,13 @@ class TestDatabaseFunctions(unittest.TestCase):
         # Testing file functions
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
+        
+    # def test_get_table_error(self):
+        # print ('---------------------')
+        # print ('Start: test_get_table_error')
+        # from src.todoList import get_table
+        # table = get_table(None)
+        # print ('End: test_get_table_error')
 
 
 
