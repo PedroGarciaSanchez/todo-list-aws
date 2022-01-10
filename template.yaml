@@ -36,7 +36,7 @@ Globals:
     Environment:
       Variables:
         DYNAMODB_TABLE: !Ref TodosDynamoDbTable
-        ENDPOINT_OVERRIDE: "http://dynamodb:8000"
+        ENDPOINT_OVERRIDE: ""
     
 # PGS: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 # PGS: Resources: The required Resources section declares the AWS resources 
