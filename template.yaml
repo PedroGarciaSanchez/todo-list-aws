@@ -1,19 +1,10 @@
-#PGS: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html:
-#PGS: You can author AWS CloudFormation templates in JSON or YAML formats
-#PGS: this file defines the application's AWS resources
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   todo-list-aws
-
   Application TODO-LIST with SAM format
-
 # Parameters
-#PGS: https://docs.aws.amazon.com/es_es/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html:
-#PGS: Utilice la sección Parameters opcional para personalizar sus plantillas. Los parámetros le permiten introducir valores 
-#PGS: personalizados a su plantilla cada vez que crea o actualiza una pila.
 Parameters:
-# PGS: we define the "Stage parameter": default, staging or production
   Stage:
     Type: String
     Default: default
@@ -23,41 +14,22 @@ Parameters:
       - production
     Description: Enter staging or production. Default is default  
 
-# More info about Globals: 
-#PGS: Resources in a SAM template tend to have shared configuration such as Runtime, Memory, VPC Settings, Environment Variables, Cors, etc. 
-#PGS: Instead of duplicating this information in every resource, you can write them once in the Globals section and let all resources inherit it.
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 3
     Environment:
       Variables:
         DYNAMODB_TABLE: !Ref TodosDynamoDbTable
-        ENDPOINT_OVERRIDE: "http://dynamodb:8000"
+        ENDPOINT_OVERRIDE: ""
     
-    #PGS: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
-    #PGS: Resources: The required Resources section declares the AWS resources that you want to include in the stack, 
-    #PGS: such as an Amazon EC2 instance or an Amazon S3 bucket.
-    #PGS: Here, APIs (Type: AWS::Serverless::Function) and DynamoDB(Type: AWS::DynamoDB::Table)
 Resources:
   
   CreateTodoFunction:
-  #PGS: AWS::Serverless::Function Creates an AWS Lambda function, an AWS Identity and Access Management (IAM) execution role, 
-  #PGS: and event source mappings that trigger the function.
     Type: AWS::Serverless::Function 
     Properties:
-    #PGS: source path. CodeUri:
-    #PGS: 1. If the PackageType property is set to Zip (default), then one of CodeUri or InlineCode is required.
-
-    #PGS: 2. If an Amazon S3 URI or FunctionCode object is provided, the Amazon S3 object referenced must be a valid Lambda deployment package.
-
-    #PGS: 3. If the path to a local folder is provided, for the code to be transformed properly the template must go through the workflow that 
-    #PGS: includes sam build followed by either sam deploy or sam package. By default, relative paths are resolved with respect to the AWS SAM
-    #PGS: template's location.
       CodeUri: src/
-      #PGS: Role: The ARN of an IAM role to use as this function's execution role.
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-       #PGS: handler function. Handler: The function within your code that is called to begin execution. 
-       #PGS: This property is only required if the PackageType property is set to Zip.
       Handler: create.create
       Runtime: python3.7
       Events:
@@ -71,7 +43,6 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      #PGS: handler function
       Handler: list.list
       Runtime: python3.7
       Events:
@@ -85,7 +56,6 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      #PGS: handler function
       Handler: get.get
       Runtime: python3.7
       Events:
@@ -99,7 +69,6 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      #PGS: handler function
       Handler: update.update
       Runtime: python3.7
       Events:
@@ -113,7 +82,6 @@ Resources:
     Properties:
       CodeUri: src/
       Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/LabRole"
-      #PGS: handler function
       Handler: delete.delete
       Runtime: python3.7
       Events:
@@ -126,12 +94,6 @@ Resources:
   TodosDynamoDbTable:
     Type: AWS::DynamoDB::Table
     Properties: 
-    #PGS: equivalent to: 
-    #PGS: aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S 
-    #PGS: --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 
-    #PGS: --endpoint-url http://localhost:8000 --region us-east-1
-    #PGS: when on Local launch
-    #PGS: we use a mock database for unit testing: TestToDo.py
       TableName: !Sub "${Stage}-TodosDynamoDbTable"
       AttributeDefinitions: 
         - AttributeName: id
@@ -143,15 +105,11 @@ Resources:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
 
-#defined in localEnvironment.json
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  #PGS: API: This is called an "Implicit API". There can be many functions in the template that define these APIs. 
-  #PGS: Behind the scenes, SAM will collect all implicit APIs from all Functions in the template, generate a Swagger,
-  #PGS: and create an implicit AWS::Serverless::Api using this Swagger. This API defaults to a StageName called "Prod" that cannot be configured.
-  #PGS: Sub substitutes variables in an input string with values that you specify
   BaseUrlApi:
     Description: "Base URL of API"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
@@ -170,4 +128,3 @@ Outputs:
   DeleteTodoApi:
     Description: "API Gateway endpoint URL for ${opt:stage} stage for Delete TODO"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/todos/{id}"
-
