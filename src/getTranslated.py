@@ -20,7 +20,7 @@ def getTranslated(event, context):
     if item:
         # COMPREHEND: DETECTAR EL LENGUAJE CON BOTO
         comprehend = boto3.client(service_name='comprehend',
-                                  region_name='region')
+                                  region_name='us-east-1')
         record = json.dumps(item, cls=decimalencoder.DecimalEncoder)
         print('Calling DetectDominantLanguage')
         # print(json.dumps(comprehend.detect_dominant_language(Text = record),
