@@ -31,10 +31,6 @@ def getTranslated(event, context):
             comprehend.detect_dominant_language(Text=record),
             sort_keys=True,
             indent=4)
-        source_language = \
-json.dumps(comprehend.detect_dominant_language(Text=record),
-           sort_keys=True,
-           indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
         # response["Items"][0]['extension']
@@ -44,9 +40,10 @@ json.dumps(comprehend.detect_dominant_language(Text=record),
             # passes the
             # review, the source language, and the target language to get the
             # translated review.
-            translatedResult = translate.translate_text(Text=record,
-                                                        SourceLanguageCode=source_language,
-                                                        TargetLanguageCode=target_language)
+            translatedResult = translate.translate_text(
+                Text=record,
+                SourceLanguageCode=source_language,
+                TargetLanguageCode=target_language)
             logging.info("Translation output: " + str(translatedResult))
             response = {
                 "statusCode": 200,
