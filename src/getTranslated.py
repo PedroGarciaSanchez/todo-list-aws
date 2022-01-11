@@ -8,31 +8,31 @@ import logging
 def getTranslated(event, context):
     # IMP: para detectar el lenguaje:
     # https://docs.aws.amazon.com/comprehend/latest/dg/
-    # get-started-api-dominant-language.html#get-started-api-dominant-language-python
-    # IMP!!! pag 61 de 
+    # get-started-api-dominant-language.html#get-started-api-dominant
+    # -language-python
+    # IMP!!! pag 61 de
     # https://docs.aws.amazon.com/es_es/translate/latest/dg/translate-dg.pdf
     
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     translate = boto3.client('translate')
-    
     item = todoList.get_item(event['pathParameters']['id'])
     if item:
         # COMPREHEND: DETECTAR EL LENGUAJE CON BOTO
         comprehend = boto3.client(service_name='comprehend', region_name='region')
         record = json.dumps(item,cls=decimalencoder.DecimalEncoder)
-    
         print('Calling DetectDominantLanguage')
-        # print(json.dumps(comprehend.detect_dominant_language(Text = record), sort_keys=True, indent=4))
-        # supported languages: https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
+        # print(json.dumps(comprehend.detect_dominant_language(Text = record),
+        # sort_keys=True, indent=4))
+        # supported languages:
+        # https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
         source_language = json.dumps\
-        (comprehend.detect_dominant_language(Text = record), sort_keys=True, indent=4)
+        (comprehend.detect_dominant_language(Text = record),\
+        sort_keys=True, indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
-           
-            #response["Items"][0]['extension']
-        target_language = event['pathParameters']['language']    
-        
+        #response["Items"][0]['extension']
+        target_language = event['pathParameters']['language']
         try:
             # The Lambda function calls the TranslateText operation and passes the
             # review, the source language, and the target language to get the
@@ -43,8 +43,6 @@ def getTranslated(event, context):
         except Exception as e:
             logger.error(response)
             raise Exception("[ErrorMessage]: " + str(e))
-                    
-        
         response = {
             "statusCode": 200,
             # "body": json.dumps(item, cls=decimalencoder.DecimalEncoder)
@@ -56,7 +54,7 @@ def getTranslated(event, context):
             "body": ""
         }
     return response
-    
+
     
   # https://docs.aws.amazon.com/es_es/translate/latest/dg/translate-dg.pdf  
     
@@ -72,7 +70,8 @@ def getTranslated(event, context):
 # logger.setLevel(logging.INFO)
 # def lambda_handler(event, context):
 #  logger.info(event)
-# if 'source_language' in event and 'target_language' in event and 'review' in event and
+# if 'source_language' in event and 'target_language' in event and 'review'
+# in event and
 #  'review_id' in event:
 #  review_id = event['review_id']
 #  source_language = event['source_language']
