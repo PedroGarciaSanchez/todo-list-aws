@@ -19,7 +19,7 @@ def getTranslated(event, context):
     item = todoList.get_item(event['pathParameters']['id'])
     if item:
         # COMPREHEND: DETECTAR EL LENGUAJE CON BOTO
-        comprehend = boto3.client(service_name='comprehend', 
+        comprehend = boto3.client(service_name='comprehend',
 region_name='region')
         record = json.dumps(item, cls=decimalencoder.DecimalEncoder)
         print('Calling DetectDominantLanguage')
@@ -28,7 +28,7 @@ region_name='region')
         # supported languages:
         # https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
         source_language = json.dumps\
-(comprehend.detect_dominant_language(Text = record),\
+ (comprehend.detect_dominant_language(Text = record), \
 sort_keys=True, indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
@@ -39,17 +39,18 @@ sort_keys=True, indent=4)
             # passes the
             # review, the source language, and the target language to get the
             # translated review.
-            translatedResult = translate.translate_text(Text=record, 
+            translatedResult = translate.translate_text(Text=record,
 SourceLanguageCode=source_language, TargetLanguageCode=target_language)
             logging.info("Translation output: " + str(translatedResult))
-        except Exception as e:
-            logger.error(response)
-            raise Exception("[ErrorMessage]: " + str(e))
-        response = {
+            response = {
             "statusCode": 200,
             # "body": json.dumps(item, cls=decimalencoder.DecimalEncoder)
             "body": translatedResult
         }
+        except Exception as e:
+            logger.error(item)
+            raise Exception("[ErrorMessage]: " + str(e))
+        
     else:
         response = {
             "statusCode": 404,
