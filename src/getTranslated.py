@@ -27,8 +27,8 @@ def getTranslated(event, context):
         # sort_keys=True, indent=4))
         # supported languages:
         # https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
-        source_language=json.dumps\
-(comprehend.detect_dominant_language(Text=record),
+        source_language=\
+json.dumps(comprehend.detect_dominant_language(Text=record),
             sort_keys=True, indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
@@ -50,7 +50,6 @@ SourceLanguageCode=source_language,TargetLanguageCode=target_language)
         except Exception as e:
             logger.error(item)
             raise Exception("[ErrorMessage]: " + str(e))
-        
     else:
         response = {
             "statusCode": 404,
