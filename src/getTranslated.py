@@ -53,7 +53,7 @@ def getTranslated(event, context):
             response = {
                 "statusCode": 200,
                 # "body": json.dumps(item, cls=decimalencoder.DecimalEncoder)
-                "body": translatedResult
+                "body": str(translatedResult)
             }
         except Exception as e:
             logger.error(item)
