@@ -34,7 +34,8 @@ def getTranslated(event, context):
         print("Source language: " + source_language)
         languageCode = json.loads(source_language)
         # code = (languageCode["languageCode"])
-        code = (languageCode['LanguageCode'])
+        # print data['places'][0]['post code']
+        code = (languageCode['Languages'][0]['LanguageCode'])
         print("LanguageCode: " + code)
         print("End of DetectDominantLanguage\n")
         # response["Items"][0]['extension']
