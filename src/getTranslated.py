@@ -19,7 +19,7 @@ def getTranslated(event, context):
     item = todoList.get_item(event['pathParameters']['id'])
     if item:
         # COMPREHEND: DETECTAR EL LENGUAJE CON BOTO
-        comprehend = boto3.client(service_name=
+        comprehend = boto3.client(service_name=\
             'comprehend',
             region_name='region')
         record = json.dumps(item, cls=decimalencoder.DecimalEncoder)
@@ -28,7 +28,8 @@ def getTranslated(event, context):
         # sort_keys=True, indent=4))
         # supported languages:
         # https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
-        source_language=json.dumps(comprehend.detect_dominant_language(Text=record),
+        source_language=json.dumps\
+        (comprehend.detect_dominant_language(Text=record),
             sort_keys=True, indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
@@ -44,10 +45,10 @@ def getTranslated(event, context):
                 TargetLanguageCode=target_language)
             logging.info("Translation output: " + str(translatedResult))
             response = {
-            "statusCode": 200,
-            # "body": json.dumps(item, cls=decimalencoder.DecimalEncoder)
-            "body": translatedResult
-        }
+                "statusCode": 200,
+                # "body": json.dumps(item, cls=decimalencoder.DecimalEncoder)
+                "body": translatedResult
+            }
         except Exception as e:
             logger.error(item)
             raise Exception("[ErrorMessage]: " + str(e))
