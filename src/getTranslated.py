@@ -29,7 +29,8 @@ def getTranslated(event, context):
         # https://docs.aws.amazon.com/comprehend/latest/dg/supported-languages.html
         source_language = \
 json.dumps(comprehend.detect_dominant_language(Text=record),
-           sort_keys=True, indent=4)
+           sort_keys=True,
+           indent=4)
         print("Source language: " + source_language)
         print("End of DetectDominantLanguage\n")
         # response["Items"][0]['extension']
