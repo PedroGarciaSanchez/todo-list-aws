@@ -31,7 +31,7 @@ def getTranslated(event, context):
             comprehend.detect_dominant_language(Text=record),
             sort_keys=True,
             indent=4)
-        languageCode = json.loads(source_language['body'])['LanguageCode']
+        languageCode = json.loads(source_language)['LanguageCode']
         print("Source language: " + source_language)
         print("LanguageCode: " + languageCode)
         print("End of DetectDominantLanguage\n")
