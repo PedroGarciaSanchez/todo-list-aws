@@ -230,11 +230,12 @@ class TestDatabaseFunctions(unittest.TestCase):
         self.assertRaises(TypeError, delete_item("", self.dynamodb))
         print ('End: test_delete_todo_error')
         
-    def test_get_table_error(self):
+    def test_get_table_increase_coverage(self):
         print ('---------------------')
         print ('Start: test_get_table_error')
         from src.todoList import get_table
         table = get_table(None)
+        print ('*****table: ' + table)
         print ('End: test_get_table_error')
 
 
