@@ -11,7 +11,7 @@ export ENDPOINT_OVERRIDE='http://localhost:8000'
 # PGS: start dynamo docker if is exited, for coverage test
 if [ ! "$(docker ps -q -f name=dynamodb)" ]; then
     if [ "$(docker ps -aq -f status=exited -f name=dynamodb)" ]; then
-        docker start -i dynamodb
+        docker start -i dynamodb &>/dev/null &
         aws dynamodb create-table --table-name local-TodosDynamoDbTable --attribute-definitions AttributeName=id,AttributeType=S --key-schema AttributeName=id,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --endpoint-url http://localhost:8000 --region us-east-1
     fi
 fi
