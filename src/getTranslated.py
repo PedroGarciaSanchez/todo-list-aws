@@ -46,19 +46,27 @@ def getTranslated(event, context):
                 Text=record,
                 SourceLanguageCode=code,
                 TargetLanguageCode=target_language)
-            decoded = translatedResult.decode("utf-8").encode("windows-1252").decode("utf-8")
+            # decoded = translatedResult.decode("utf-8").encode("windows-1252").decode("utf-8")
             # decoded = translatedResult.decode("utf-8"). \
             #                           encode("windows-1252").decode("utf-8")
-            # logging.info("Translation output: " + str(translatedResult))
-            # response = {
-            #    "statusCode": 200,
-            #    "body": str(translatedResult)
-            # }
-            logging.info("Translation output: " + str(decoded))
+            logging.info("Translation output: " + str(translatedResult))
+            translatedResultStr = str(translatedResult)
+            # extractedJson = translatedResultStr.split()
+            # json_response['text'][0:29]
+            index1 = translatedResultStr.find("'{")
+            index2 = translatedResultStr.find("}'")
+            translateJson = translatedResultStr[index1 + 1:index2]
+            logging.info("Generated json: " + translateJson)
             response = {
                 "statusCode": 200,
-                "body": str(decoded)
+                "body": translateJson
+                # "body": str(translatedResult)
             }
+            # logging.info("Translation output: " + str(decoded))
+            # response = {
+            #    "statusCode": 200,
+            #    "body": str(decoded)
+            # }
         except Exception as e:
             logger.error(item)
             raise Exception("[ErrorMessage]: " + str(e))
