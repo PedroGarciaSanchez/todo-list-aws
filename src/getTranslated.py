@@ -55,7 +55,7 @@ def getTranslated(event, context):
             # json_response['text'][0:29]
             index1 = translatedResultStr.find("'{")
             index2 = translatedResultStr.find("}'")
-            translateJson = translatedResultStr[index1 + 1:index2 + 1]
+            translateJson = (translatedResultStr[index1 + 1:index2 + 1]).replace("«", "\"").replace("»", "\"")
             logging.info("Generated json: " + translateJson)
             response = {
                 "statusCode": 200,
