@@ -47,7 +47,6 @@ def getTranslated(event, context):
                 SourceLanguageCode=code,
                 TargetLanguageCode=target_language)
             decoded = translatedResult.decode("utf-8").encode("windows-1252").decode("utf-8")
-                                       
             # decoded = translatedResult.decode("utf-8"). \
             #                           encode("windows-1252").decode("utf-8")
             # logging.info("Translation output: " + str(translatedResult))

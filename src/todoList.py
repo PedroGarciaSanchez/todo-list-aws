@@ -11,7 +11,7 @@ def get_table(dynamodb=None):
     if not dynamodb:
         URL = os.environ['ENDPOINT_OVERRIDE']
         if URL:
-            print('URL dynamoDB:'+URL)
+            print('URL dynamoDB:' + URL)
             # PGS: By redefining boto3.client and boto3.resource to be our
             # new partial,
             # instead of the original versions from the library, we're
@@ -42,7 +42,7 @@ def get_item(key, dynamodb=None):
     except ClientError as e:
         print(e.response['Error']['Message'])
     else:
-        print('Result getItem:'+str(result))
+        print('Result getItem:' + str(result))
         if 'Item' in result:
             return result['Item']
 
