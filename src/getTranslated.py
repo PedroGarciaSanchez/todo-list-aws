@@ -46,10 +46,17 @@ def getTranslated(event, context):
                 Text=record,
                 SourceLanguageCode=code,
                 TargetLanguageCode=target_language)
-            logging.info("Translation output: " + str(translatedResult))
+            decoded =\
+            translatedResult.decode("utf-8").encode("windows-1252").decode("utf-8")
+            # logging.info("Translation output: " + str(translatedResult))
+            # response = {
+            #    "statusCode": 200,
+            #    "body": str(translatedResult)
+            # }
+            logging.info("Translation output: " + str(decoded))
             response = {
                 "statusCode": 200,
-                "body": str(translatedResult)
+                "body": str(decoded)
             }
         except Exception as e:
             logger.error(item)
