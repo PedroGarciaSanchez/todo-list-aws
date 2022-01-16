@@ -51,8 +51,6 @@ def getTranslated(event, context):
             #                           encode("windows-1252").decode("utf-8")
             logging.info("Translation output: " + str(translatedResult))
             translatedResultStr = str(translatedResult)
-            # extractedJson = translatedResultStr.split()
-            # json_response['text'][0:29]
             index1 = translatedResultStr.find("'{")
             index2 = translatedResultStr.find("}'")
             translateJson = (translatedResultStr[index1 + 1:index2 + 1]).replace("«", "\"").replace("»", "\"")
@@ -62,11 +60,6 @@ def getTranslated(event, context):
                 "body": translateJson
                 # "body": str(translatedResult)
             }
-            # logging.info("Translation output: " + str(decoded))
-            # response = {
-            #    "statusCode": 200,
-            #    "body": str(decoded)
-            # }
         except Exception as e:
             logger.error(item)
             raise Exception("[ErrorMessage]: " + str(e))

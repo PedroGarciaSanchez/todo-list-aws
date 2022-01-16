@@ -106,8 +106,9 @@ class TestApi(unittest.TestCase):
             json_response['text'], "Integration text example - GET", "Error en la petición API a {url}"
         )
         # PGS: Test GET TODO TRANSLATED
-        url = BASE_URL+"/todos/"+ID_TODO+"/es"
-        response = requests.get(url)
+        url2 = BASE_URL+"/todos/"+ID_TODO+"/es"
+        print('*********url:' + str(url2))
+        response = requests.get(url2)
         json_response = response.json()
         print('Response Get Todo Translated: '+ str(json_response))
         self.assertEqual(
