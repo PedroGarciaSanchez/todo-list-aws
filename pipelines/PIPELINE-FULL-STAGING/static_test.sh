@@ -24,7 +24,7 @@ then
 fi
 
 #PGS: flake 8 execution over python files in src folder
-flake8 src/*.py
+flake8 --ignore=E501 src/*.py
 if [[ $? -ne 0 ]]
 then
     exit 1
