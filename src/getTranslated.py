@@ -46,8 +46,8 @@ def getTranslated(event, context):
                 Text=record,
                 SourceLanguageCode=code,
                 TargetLanguageCode=target_language)
-            decoded =\
-            translatedResult.decode("utf-8").encode("windows-1252").decode("utf-8")
+            decoded = translatedResult.decode("utf-8"). \
+encode("windows-1252").decode("utf-8")
             # logging.info("Translation output: " + str(translatedResult))
             # response = {
             #    "statusCode": 200,
