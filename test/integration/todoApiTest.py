@@ -105,6 +105,18 @@ class TestApi(unittest.TestCase):
         self.assertEqual(
             json_response['text'], "Integration text example - GET", "Error en la petición API a {url}"
         )
+        # PGS: Test GET TODO TRANSLATED
+        url = BASE_URL+"/todos/"+ID_TODO+"/es"
+        response = requests.get(url)
+        json_response = response.json()
+        print('Response Get Todo Translated: '+ str(json_response))
+        self.assertEqual(
+            response.status_code, 200, "Error en la petición API a {url}"
+        )
+        # self.assertIn('bcd', 'abcde')
+        self.assertEqual(
+            json_response['text'][0:29], "Ejemplo de texto de integraci", "Error en la petición API a {url}"
+        )
         #Delete TODO to restore state
         response = requests.delete(url)
         self.assertEqual(
