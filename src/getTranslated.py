@@ -23,7 +23,7 @@ def getTranslated(event, context):
                                   region_name='us-east-1')
         record = json.dumps(item, cls=decimalencoder.DecimalEncoder)
         print('Calling DetectDominantLanguage')
-        # PGS: 
+        # PGS:
         # PGS: supported languages:
         # https://docs.aws.amazon.com/comprehend/latest/dg/
         # supported-languages.html
